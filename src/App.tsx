@@ -11,7 +11,7 @@ const AppContainer = styled.div`
 const App = () => {
   return (
     <AppContainer className="app-container">
-      <BpmnViewer />
+      <BpmnViewer url="diagrams/example.bpmn" />
     </AppContainer>
   );
 }
