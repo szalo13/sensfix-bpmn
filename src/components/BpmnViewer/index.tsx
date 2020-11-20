@@ -4,6 +4,7 @@ import Modeler from 'bpmn-js/lib/Modeler';
 // Import Bpmn diagram styles
 import 'bpmn-js/dist/assets/diagram-js.css';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css';
+import NamePanel from './panels/NamePanel';
 
 interface IBpmnViewerPropTypes {
   url: string,
@@ -19,7 +20,16 @@ const BpmnContainer = styled.div`
   width: 100%;
   min-height: 100vh;
 `;
-const PropertiesPanel = styled.div``;
+const PropertiesPanel = styled.div`
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  padding: 10px;
+  background-color: #FAFAFA;
+  border-radius: 5px;
+  min-width: 480px;
+`;
+const PropertiesPanelName = styled.h3``;
 
 /**
  * Modeler config
@@ -49,7 +59,6 @@ const BpmnViewer = ({
 
   const setDiagram = (xml: string) => {
     if (bpmnModeler) {
-      console.log('here');
       bpmnModeler.importXML(xml, (err: any) => {
         console.log(err);
       });
@@ -66,7 +75,12 @@ const BpmnViewer = ({
   return (
     <ViewerWrapper>
       <BpmnContainer id="bpmn-container" />
-      <PropertiesPanel id="bpmn-properties-panel" />
+      {bpmnModeler && (
+        <PropertiesPanel id="bpmn-properties-panel">
+          <PropertiesPanelName>Properties</PropertiesPanelName>
+          <NamePanel modeler={bpmnModeler} />
+        </PropertiesPanel>
+      )}
     </ViewerWrapper>
   )
 }

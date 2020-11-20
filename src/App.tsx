@@ -2,6 +2,8 @@ import React from 'react';
 import './App.css';
 import BpmnViewer from './components/BpmnViewer';
 import styled from 'styled-components';
+// AndDesign styles
+import 'antd/dist/antd.css';
 
 const AppContainer = styled.div`
   min-width: 100vw;
