@@ -3,7 +3,10 @@ import './App.css';
 import BpmnViewer from './components/BpmnViewer';
 import styled from 'styled-components';
 
-const AppContainer = styled.div``;
+const AppContainer = styled.div`
+  min-width: 100vw;
+  min-height: 100vh;
+`;
 
 const App = () => {
   return (

@@ -6,7 +6,16 @@ interface IBpmnViewerPropTypes {
   
 }
 
-const ViewerWrapper = styled.div``;
+const ViewerWrapper = styled.div`
+  display: flex;
+  min-width: 100vw;
+  min-height: 100vh;
+
+  .react-bpmn-diagram-container {
+    width: 100%;
+    height: 100%;
+  }
+`;
 
 const BpmnViewer = ({
   
