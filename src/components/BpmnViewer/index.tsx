@@ -39,11 +39,15 @@ const BpmnContainer = styled.div`
     width: 100vw;
     height: 100vh;
   }
+
+  .bjs-powered-by {
+    display: none;
+  }
 `;
 const PropertiesPanel = styled.div`
   position: absolute;
   bottom: 10px;
-  left: 10px;
+  right: 10px;
   padding: 10px;
   background-color: #FAFAFA;
   border-radius: 5px;
