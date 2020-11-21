@@ -94,7 +94,7 @@ const BpmnViewer = ({
   return (
     <ViewerWrapper>
       <BpmnContainer id="bpmn-container" />
-      {diagramLoaded && (
+      {diagramLoaded && bpmnModeler && (
         <PropertiesPanel id="bpmn-properties-panel">
           <PropertiesPanelName>Properties</PropertiesPanelName>
           <NamePanel modeler={bpmnModeler} />
