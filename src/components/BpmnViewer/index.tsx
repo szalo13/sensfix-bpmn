@@ -5,20 +5,38 @@ import Modeler from 'bpmn-js/lib/Modeler';
 import 'bpmn-js/dist/assets/diagram-js.css';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css';
 import NamePanel from './panels/NamePanel';
+import CustomRenderer from './customs/CustomRenderer';
+import CustomPalette from './customs/CustomPallete';
 
 interface IBpmnViewerPropTypes {
   url: string,
 }
 
-const ViewerWrapper = styled.div`
-  display: flex;
-  min-width: 100vw;
-  min-height: 100vh;
-`;
 
+/**
+ * Modeler
+ */
+let bpmnModeler: any | null = null;
+const MODELER_CONFIG = {
+  container: '#bpmn-container',
+  additionalModules: [
+    {
+      __init__: [ 'customRenderer', 'customPallete' ],
+      customRenderer: [ 'type', CustomRenderer ],
+      customPallete: [ 'type', CustomPalette ],
+    }
+  ]
+};
+
+/**
+ * Styles
+ */
+const ViewerWrapper = styled.div``;
 const BpmnContainer = styled.div`
-  width: 100%;
-  min-height: 100vh;
+  .djs-container {
+    width: 100vw;
+    height: 100vh;
+  }
 `;
 const PropertiesPanel = styled.div`
   position: absolute;
@@ -30,11 +48,6 @@ const PropertiesPanel = styled.div`
   min-width: 480px;
 `;
 const PropertiesPanelName = styled.h3``;
-
-/**
- * Modeler config
- */
-let bpmnModeler: any | null = null;
 
 const BpmnViewer = ({
   url
@@ -50,9 +63,7 @@ const BpmnViewer = ({
   const initViewer = () => {
     if (!viewerInitialized) {
       setViewerInitialized(true);
-      bpmnModeler = new Modeler({
-        container: '#bpmn-container',
-      });
+      bpmnModeler = new Modeler(MODELER_CONFIG);
       loadFromUrl(url);
     }
   }

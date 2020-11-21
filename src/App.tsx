@@ -8,6 +8,22 @@ import 'antd/dist/antd.css';
 const AppContainer = styled.div`
   min-width: 100vw;
   min-height: 100vh;
+
+  .djs-palette {
+    .bpmn-icon-task {
+      &.red {
+        color: red;
+      }
+
+      &.blue {
+        color: blue;
+      }
+
+      &.green {
+        color: green;
+      }
+    }
+  }
 `;
 
 const App = () => {

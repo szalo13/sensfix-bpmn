@@ -47,6 +47,7 @@ const NamePanel = ({
   return (
     <NamePanelWrapper>
       <Input
+        disabled={!currentElement}
         size="large"
         onBlur={changeName}
         onChange={handleTextChange}
