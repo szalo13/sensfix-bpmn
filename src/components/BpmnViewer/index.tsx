@@ -12,7 +12,6 @@ interface IBpmnViewerPropTypes {
   url: string,
 }
 
-
 /**
  * Modeler
  */
@@ -33,7 +32,10 @@ const MODELER_CONFIG = {
  */
 const ViewerWrapper = styled.div``;
 const BpmnContainer = styled.div`
-  .djs-container {
+  width: 100vw;
+  height: 100vh;
+
+  .bjs-container {
     width: 100vw;
     height: 100vh;
   }
@@ -52,16 +54,17 @@ const PropertiesPanelName = styled.h3``;
 const BpmnViewer = ({
   url
 }: IBpmnViewerPropTypes) => {
-  const [viewerInitialized, setViewerInitialized] = useState(false);
+  const [modelerInitialized, setViewerInitialized] = useState(false);
+  const [diagramLoaded, setDiagramLoaded] = useState(false);
 
   useEffect(() => {
-    if (!viewerInitialized) {
+    if (!modelerInitialized) {
       initViewer();
     }
-  }, [viewerInitialized]);
+  }, [modelerInitialized]);
 
   const initViewer = () => {
-    if (!viewerInitialized) {
+    if (!modelerInitialized) {
       setViewerInitialized(true);
       bpmnModeler = new Modeler(MODELER_CONFIG);
       loadFromUrl(url);
@@ -70,6 +73,7 @@ const BpmnViewer = ({
 
   const setDiagram = (xml: string) => {
     if (bpmnModeler) {
+      setDiagramLoaded(true);
       bpmnModeler.importXML(xml, (err: any) => {
         console.log(err);
       });
@@ -79,14 +83,14 @@ const BpmnViewer = ({
   const loadFromUrl = (url: string) => {
     fetch(url)
       .then(response => response.text())
-      .then(text => setDiagram(text))
+      .then(setDiagram)
       .catch(err => console.log(err));
   }
 
   return (
     <ViewerWrapper>
       <BpmnContainer id="bpmn-container" />
-      {bpmnModeler && (
+      {diagramLoaded && (
         <PropertiesPanel id="bpmn-properties-panel">
           <PropertiesPanelName>Properties</PropertiesPanelName>
           <NamePanel modeler={bpmnModeler} />
