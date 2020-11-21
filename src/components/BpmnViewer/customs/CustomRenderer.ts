@@ -1,7 +1,9 @@
 import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
 import { BLUE_TASK_NAME, GREEN_TASK_NAME, RED_TASK_NAME } from '../const';
-import { drawBlueTask, drawGreenTask, drawRedTask } from '../utils/draw';
-
+import { drawCircle } from '../utils/draw';
+import {
+  attr as svgAttr,
+} from 'tiny-svg';
 export default class CustomRenderer extends BaseRenderer {
   bpmnRenderer: any;
   
@@ -11,7 +13,28 @@ export default class CustomRenderer extends BaseRenderer {
     this.bpmnRenderer = bpmnRenderer;
   }
 
-  canRender(element: any) {
+  drawBlueTask(parentNode: any, element: any) {
+    const shape = this.bpmnRenderer.drawShape(parentNode, element);
+    svgAttr(shape, { stroke: 'blue' })
+    return shape;
+  }
+
+  drawRedTask(parentNode: any, element: any) {
+    const shape = this.bpmnRenderer.drawShape(parentNode, element);
+    svgAttr(shape, { stroke: 'red' })
+    return shape;
+  }
+
+  drawGreenTask(parentNode: any, element: any) {
+    const shape = this.bpmnRenderer.drawShape(parentNode, element);
+    const point = drawCircle(parentNode, 10, 'green');
+    svgAttr(point, { transform: 'translate(-10, -10)' });
+    svgAttr(shape, { stroke: 'green' });
+    
+    return shape;
+  }
+
+  canRender() {
     return true;
   }
 
@@ -20,14 +43,13 @@ export default class CustomRenderer extends BaseRenderer {
 
     switch (element.name) {
       case BLUE_TASK_NAME:
-        console.log(element);
-        return drawBlueTask(shape);
+        return this.drawBlueTask(parentNode, element);
       
       case GREEN_TASK_NAME:
-        return drawGreenTask(shape);
+        return this.drawGreenTask(parentNode, element);
       
       case RED_TASK_NAME:
-        return drawRedTask(shape);
+        return this.drawRedTask(parentNode, element);
     
       default:
         return shape;

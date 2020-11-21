@@ -1,16 +1,21 @@
-import { attr as svgAttr } from 'tiny-svg';
+import {
+  attr as svgAttr,
+  create as svgCreate,
+  append as svgAppend,
+} from 'tiny-svg';
 
-export const drawBlueTask = (shape: any) => {
-  svgAttr(shape, { stroke: 'blue' })
-  return shape;
-}
+export const drawCircle = (parentNode: any, size: number, color: string) => {
+  const rect = svgCreate('rect');
+  svgAttr(rect, {
+    width: size,
+    height: size,
+    stroke: color,
+    rx: size,
+    ry: size,
+    strokeWidth: 2,
+    fill: color
+  });
+  svgAppend(parentNode, rect);
 
-export const drawRedTask = (shape: any) => {
-  svgAttr(shape, { stroke: 'red', fill: 'red', color: 'white' })
-  return shape;
-}
-
-export const drawGreenTask = (shape: any) => {
-  svgAttr(shape, { stroke: 'green' })
-  return shape;
+  return rect;
 }
